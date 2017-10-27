@@ -1,0 +1,24 @@
+*** Settings ***
+Library  RequestsLibrary
+Library  Collections
+Library  Excel
+*** Test Cases ***
+case1
+    ${headers}  create dictionary  Content-Type=application/json
+    create session  api  http://jkkit-fs-trade-stg2.paic.com.cn  ${headers}
+    set excel path  D:\\zhy\\auto.xls
+    ${JSON_DATA}    get cell by col index row index  Sheet1  3  8
+    log  ${JSON_DATA}
+    ${URI}   get cell by col index row index  Sheet1   0   1
+    ${resp}  post request  api  ${URI}  ${JSON_DATA}
+    log  ${resp.text}
+    ${responsedata}  to json  ${resp.text}
+    log  ${responsedata}
+    ${keys}    Get Dictionary Keys    ${responsedata}
+    ${items}    Get Dictionary Items    ${responsedata}
+    ${values}    Get Dictionary Values    ${responsedata}
+    ${responseCode}    Get From Dictionary    ${responsedata}   responseCode
+    ${responseMessage}    Get From Dictionary    ${responsedata}   responseMessage
+    write excel  Sheet1    3    1    ${responseCode}
+    write excel  Sheet1    3    2    ${responseMessage}
+    should be equal as strings  ${responseCode}  000000

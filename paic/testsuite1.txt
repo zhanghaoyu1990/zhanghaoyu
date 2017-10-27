@@ -1,0 +1,19 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           Excel
+Resource          userkeywords.txt
+Resource          basickeywords.txt
+
+*** Test Cases ***
+case1
+    ${responsedata}   读取数据并发送   http://jkkit-fs-trade-stg2.paic.com.cn    D:\\zhy\\auto.xls     订单受理
+    获取响应code和message并写入文件   ${responsedata}     订单受理
+    判断响应code是否为000000   ${responsedata}
+    ${value}  根据key获得value   ${responsedata}  responseMessage
+    should be equal as strings   ${value}    成功
+    ${responsedata}   上个请求的返回参数作为这个请求的入参    http://jkkit-fs-trade-stg2.paic.com.cn    D:\\zhy\\auto.xls     订单详情    orderNo   ${responsedata}
+    获取响应code和message并写入文件   ${responsedata}     订单详情
+    判断响应code是否为000000   ${responsedata}
+    ${value}  根据key获得value   ${responsedata}  responseMessage
+    should be equal as strings   ${value}    成功

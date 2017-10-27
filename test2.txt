@@ -1,0 +1,7 @@
+*** Settings ***
+Library  Excel
+*** Test Cases ***
+case1
+    set excel path  D:\\zhy\\auto.xls
+    ${b}    get cell by col index row index    Sheet1  3   8
+    log     ${b}

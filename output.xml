@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20170411 14:07:43.625" generator="Robot 3.0.1 (Python 2.7.12 on win32)">
+<suite source="D:\dev\robot\test1.txt" id="s1" name="Test1">
+<test id="s1-t1" name="case1">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20170411 14:07:43.900" level="INFO">${headers} = {u'Content-Type': u'application/json'}</msg>
+<status status="PASS" endtime="20170411 14:07:43.900" starttime="20170411 14:07:43.899"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>api</arg>
+<arg>http://jkkit-fs-trade-stg2.paic.com.cn</arg>
+<arg>${headers}</arg>
+</arguments>
+<msg timestamp="20170411 14:07:43.901" level="INFO">Creating Session using : alias=api, url=http://jkkit-fs-trade-stg2.paic.com.cn, headers={u'Content-Type': u'application/json'},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20170411 14:07:43.901" starttime="20170411 14:07:43.900"></status>
+</kw>
+<kw name="Set Excel Path" library="Excel">
+<arguments>
+<arg>D:\\zhy\\auto.xls</arg>
+</arguments>
+<status status="PASS" endtime="20170411 14:07:43.911" starttime="20170411 14:07:43.902"></status>
+</kw>
+<kw name="Get Cell By Col Index Row Index" library="Excel">
+<arguments>
+<arg>Sheet1</arg>
+<arg>3</arg>
+<arg>8</arg>
+</arguments>
+<assign>
+<var>${JSON_DATA}</var>
+</assign>
+<msg timestamp="20170411 14:07:43.912" level="INFO">${JSON_DATA} = {
+  "requestData": {
+    "userChannel": "1",
+    "productCode": "ZHY10000",
+    "source": "0",
+    "activity": "1",
+    "payAmount": "1000",
+    "clientNo": "039551487144548256",
+    "buyPlatform": "1...</msg>
+<status status="PASS" endtime="20170411 14:07:43.912" starttime="20170411 14:07:43.911"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${JSON_DATA}</arg>
+</arguments>
+<msg timestamp="20170411 14:07:43.912" level="INFO">{
+  "requestData": {
+    "userChannel": "1",
+    "productCode": "ZHY10000",
+    "source": "0",
+    "activity": "1",
+    "payAmount": "1000",
+    "clientNo": "039551487144548256",
+    "buyPlatform": "1",
+    "productId": "10090240",
+    "productName": "预约理财平安汇金",
+    "isNewRegister": "1",
+    "custName": "乔梦菲",
+    "idType": "1",
+    "idNumber": "321322195707280791",
+    "birthday": "19570728",
+    "sex": "M",
+    "riskLevel": "2",
+    "fundAccount": "",
+    "orderType": 0,
+    "purchaseQuantity": "",
+    "from": "wap-chaoshi",
+    "frozenItem":"123123123"
+  }
+}
+</msg>
+<status status="PASS" endtime="20170411 14:07:43.912" starttime="20170411 14:07:43.912"></status>
+</kw>
+<kw name="Get Cell By Col Index Row Index" library="Excel">
+<arguments>
+<arg>Sheet1</arg>
+<arg>0</arg>
+<arg>1</arg>
+</arguments>
+<assign>
+<var>${URI}</var>
+</assign>
+<msg timestamp="20170411 14:07:43.912" level="INFO">${URI} = /fs/order/handle/orderhandling</msg>
+<status status="PASS" endtime="20170411 14:07:43.912" starttime="20170411 14:07:43.912"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>api</arg>
+<arg>${URI}</arg>
+<arg>${JSON_DATA}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20170411 14:07:44.499" level="INFO">Post Request using : alias=api, uri=/fs/order/handle/orderhandling, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20170411 14:07:44.500" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20170411 14:07:44.500" starttime="20170411 14:07:43.913"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.text}</arg>
+</arguments>
+<msg timestamp="20170411 14:07:44.500" level="INFO">{"responseCode":"000000","responseMessage":"成功","responseData":{"actualPayAmount":"1000.00","orderAmount":1000.00,"orderCreateTime":"2017-04-11 14:07:44","orderNo":"20170411020667051","orderStatus":"1","payOrderNo":"2017041101990385"}}</msg>
+<status status="PASS" endtime="20170411 14:07:44.500" starttime="20170411 14:07:44.500"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${resp.text}</arg>
+</arguments>
+<assign>
+<var>${responsedata}</var>
+</assign>
+<msg timestamp="20170411 14:07:44.501" level="INFO">To JSON using : content={"responseCode":"000000","responseMessage":"成功","responseData":{"actualPayAmount":"1000.00","orderAmount":1000.00,"orderCreateTime":"2017-04-11 14:07:44","orderNo":"20170411020667051","orderStatus":"1","payOrderNo":"2017041101990385"}} </msg>
+<msg timestamp="20170411 14:07:44.501" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20170411 14:07:44.501" level="INFO">${responsedata} = {u'responseData': {u'orderCreateTime': u'2017-04-11 14:07:44', u'actualPayAmount': u'1000.00', u'orderStatus': u'1', u'orderAmount': 1000.0, u'orderNo': u'20170411020667051', u'payOrderNo': u'20170411...</msg>
+<status status="PASS" endtime="20170411 14:07:44.501" starttime="20170411 14:07:44.500"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${responsedata}</arg>
+</arguments>
+<msg timestamp="20170411 14:07:44.502" level="INFO">{u'responseData': {u'orderCreateTime': u'2017-04-11 14:07:44', u'actualPayAmount': u'1000.00', u'orderStatus': u'1', u'orderAmount': 1000.0, u'orderNo': u'20170411020667051', u'payOrderNo': u'2017041101990385'}, u'responseMessage': u'\u6210\u529f', u'responseCode': u'000000'}</msg>
+<status status="PASS" endtime="20170411 14:07:44.502" starttime="20170411 14:07:44.501"></status>
+</kw>
+<kw name="Get Dictionary Keys" library="Collections">
+<doc>Returns keys of the given ``dictionary``.</doc>
+<arguments>
+<arg>${responsedata}</arg>
+</arguments>
+<assign>
+<var>${keys}</var>
+</assign>
+<msg timestamp="20170411 14:07:44.502" level="INFO">${keys} = [u'responseCode', u'responseData', u'responseMessage']</msg>
+<status status="PASS" endtime="20170411 14:07:44.502" starttime="20170411 14:07:44.502"></status>
+</kw>
+<kw name="Get Dictionary Items" library="Collections">
+<doc>Returns items of the given ``dictionary``.</doc>
+<arguments>
+<arg>${responsedata}</arg>
+</arguments>
+<assign>
+<var>${items}</var>
+</assign>
+<msg timestamp="20170411 14:07:44.504" level="INFO">${items} = [u'responseCode', u'000000', u'responseData', {u'orderCreateTime': u'2017-04-11 14:07:44', u'actualPayAmount': u'1000.00', u'orderStatus': u'1', u'orderAmount': 1000.0, u'orderNo': u'20170411020667051...</msg>
+<status status="PASS" endtime="20170411 14:07:44.505" starttime="20170411 14:07:44.503"></status>
+</kw>
+<kw name="Get Dictionary Values" library="Collections">
+<doc>Returns values of the given dictionary.</doc>
+<arguments>
+<arg>${responsedata}</arg>
+</arguments>
+<assign>
+<var>${values}</var>
+</assign>
+<msg timestamp="20170411 14:07:44.507" level="INFO">${values} = [u'000000', {u'orderCreateTime': u'2017-04-11 14:07:44', u'actualPayAmount': u'1000.00', u'orderStatus': u'1', u'orderAmount': 1000.0, u'orderNo': u'20170411020667051', u'payOrderNo': u'20170411019903...</msg>
+<status status="PASS" endtime="20170411 14:07:44.507" starttime="20170411 14:07:44.505"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responsedata}</arg>
+<arg>responseCode</arg>
+</arguments>
+<assign>
+<var>${responseCode}</var>
+</assign>
+<msg timestamp="20170411 14:07:44.507" level="INFO">${responseCode} = 000000</msg>
+<status status="PASS" endtime="20170411 14:07:44.508" starttime="20170411 14:07:44.507"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responsedata}</arg>
+<arg>responseMessage</arg>
+</arguments>
+<assign>
+<var>${responseMessage}</var>
+</assign>
+<msg timestamp="20170411 14:07:44.508" level="INFO">${responseMessage} = 成功</msg>
+<status status="PASS" endtime="20170411 14:07:44.508" starttime="20170411 14:07:44.508"></status>
+</kw>
+<kw name="Write Excel" library="Excel">
+<arguments>
+<arg>Sheet1</arg>
+<arg>3</arg>
+<arg>1</arg>
+<arg>${responseCode}</arg>
+</arguments>
+<msg timestamp="20170411 14:07:44.517" level="INFO">write file ok</msg>
+<status status="PASS" endtime="20170411 14:07:44.518" starttime="20170411 14:07:44.509"></status>
+</kw>
+<kw name="Write Excel" library="Excel">
+<arguments>
+<arg>Sheet1</arg>
+<arg>3</arg>
+<arg>2</arg>
+<arg>${responseMessage}</arg>
+</arguments>
+<msg timestamp="20170411 14:07:44.527" level="INFO">write file ok</msg>
+<status status="PASS" endtime="20170411 14:07:44.527" starttime="20170411 14:07:44.519"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${responseCode}</arg>
+<arg>000000</arg>
+</arguments>
+<status status="PASS" endtime="20170411 14:07:44.528" starttime="20170411 14:07:44.528"></status>
+</kw>
+<status status="PASS" endtime="20170411 14:07:44.528" critical="yes" starttime="20170411 14:07:43.899"></status>
+</test>
+<status status="PASS" endtime="20170411 14:07:44.528" starttime="20170411 14:07:43.628"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Test1" pass="1">Test1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

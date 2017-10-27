@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20170601 17:36:47.687" generator="Robot 3.0.1 (Python 2.7.12 on win32)">
+<suite source="D:\dev\robot\paic\testsuite.txt" id="s1" name="Testsuite">
+<test id="s1-t1" name="订单受理-正常用例">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>case.interface</arg>
+</arguments>
+<msg timestamp="20170601 17:36:47.947" level="INFO">case.interface</msg>
+<status status="PASS" endtime="20170601 17:36:47.947" starttime="20170601 17:36:47.947"></status>
+</kw>
+<status status="PASS" endtime="20170601 17:36:47.947" critical="yes" starttime="20170601 17:36:47.947"></status>
+</test>
+<status status="PASS" endtime="20170601 17:36:47.947" starttime="20170601 17:36:47.707"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Testsuite" pass="1">Testsuite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

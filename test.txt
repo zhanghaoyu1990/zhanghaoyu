@@ -1,0 +1,13 @@
+*** Settings ***
+Library    Selenium2Library
+*** Test Cases ***
+
+Valid login
+    # Open browser to login page
+    Open browser    https://www.baidu.com  firefox   ff_profile_dir=D:\\Users\\zhanghaoyu833\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\iwb70m9e.default
+    input text  id=kw   robotframework
+    click button  id=su
+    sleep  2
+    ${title}    get title
+    should contain   ${title}   百度
+    close browser

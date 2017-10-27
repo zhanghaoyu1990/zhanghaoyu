@@ -1,0 +1,15 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           Excel
+Resource          basickeywords.txt
+*** Variables ***
+${host}    http://jkkit-fs-trade-stg2.paic.com.cn
+
+*** Test Cases ***
+{% for cases in case_list %}
+{% for case in cases['cases'] %}
+{{ case.sheet_name }}-{{ case.case_des }}
+    ${responsedata}  发送请求   ${host}     {{ case.interface }}    {{ case.request_data }}
+{% endfor %}
+{% endfor %}

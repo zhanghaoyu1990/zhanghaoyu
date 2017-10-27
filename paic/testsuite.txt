@@ -1,0 +1,14 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           Excel
+Resource          basickeywords.txt
+*** Variables ***
+${host}    http://jkkit-fs-trade-stg2.paic.com.cn
+
+*** Test Cases ***
+
+
+订单受理-正常用例
+   log   case.interface
+

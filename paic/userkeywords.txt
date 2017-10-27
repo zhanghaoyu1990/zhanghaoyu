@@ -1,0 +1,31 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           Excel
+Resource          basickeywords.txt
+Library           Utils
+
+*** Keywords ***
+读取数据并发送
+    [Arguments]     ${host}     ${file_path}    ${sheet_name}
+    set excel path    ${file_path}
+    ${json_data}    get cell by col index row index    ${sheet_name}    2    8
+    ${uri}    get cell by col index row index    ${sheet_name}    0    1
+    ${responsedata}   发送请求  ${host}   ${uri}    ${json_data}
+    [Return]  ${responsedata}
+获取响应code和message并写入文件
+    [Arguments]  ${responsedata}    ${sheet_name}
+    ${responseCode}    Get From Dictionary    ${responsedata}    responseCode
+    ${responseMessage}    Get From Dictionary    ${responsedata}    responseMessage
+    write excel    ${sheet_name}    2    1    ${responseCode}
+    write excel    ${sheet_name}    2    2    ${responseMessage}
+判断响应code是否为000000
+    [Arguments]  ${responsedata}
+    ${responseCode}    Get From Dictionary    ${responsedata}    responseCode
+    should be equal as strings    ${responseCode}    000000
+上个请求的返回参数作为这个请求的入参
+    [Arguments]  ${host}  ${file_path}   ${sheet_name}   ${replace_params}   ${inject_data}
+    ${request_data}     replace param   ${file_path}    ${sheet_name}   ${replace_params}   ${inject_data}
+    ${uri}    get cell by col index row index    ${sheet_name}    0    1
+    ${responsedata}     发送请求    ${host}     ${uri}      ${request_data}
+    [Return]  ${responsedata}

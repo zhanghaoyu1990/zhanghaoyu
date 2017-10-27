@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20170601 16:03:12.441" generator="Robot 3.0.1 (Python 2.7.12 on win32)">
+<suite source="D:\dev\robot\Case\templates\testsuite.txt" id="s1" name="Testsuite">
+<test id="s1-t1" name="{% for cases in case_list %}">
+<status status="FAIL" endtime="20170601 16:03:12.661" critical="yes" starttime="20170601 16:03:12.651">Test case contains no keywords.</status>
+</test>
+<test id="s1-t2" name="{% for case in cases['cases'] %}">
+<status status="FAIL" endtime="20170601 16:03:12.661" critical="yes" starttime="20170601 16:03:12.661">Test case contains no keywords.</status>
+</test>
+<test id="s1-t3" name="{{ case.case_des }}">
+<kw name="post_data">
+<arguments>
+<arg>${host}</arg>
+<arg>{{ case.interface }}</arg>
+<arg>{{ case.request_data }}</arg>
+</arguments>
+<assign>
+<var>${responsedata}</var>
+</assign>
+<msg timestamp="20170601 16:03:12.661" level="FAIL">No keyword with name 'post_data' found.</msg>
+<status status="FAIL" endtime="20170601 16:03:12.661" starttime="20170601 16:03:12.661"></status>
+</kw>
+<status status="FAIL" endtime="20170601 16:03:12.661" critical="yes" starttime="20170601 16:03:12.661">No keyword with name 'post_data' found.</status>
+</test>
+<test id="s1-t4" name="{% endfor %}">
+<status status="FAIL" endtime="20170601 16:03:12.661" critical="yes" starttime="20170601 16:03:12.661">Test case contains no keywords.</status>
+</test>
+<test id="s1-t5" name="{% endfor %}">
+<status status="FAIL" endtime="20170601 16:03:12.661" critical="yes" starttime="20170601 16:03:12.661">Test case contains no keywords.</status>
+</test>
+<status status="FAIL" endtime="20170601 16:03:12.661" starttime="20170601 16:03:12.451"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="5" pass="0">Critical Tests</stat>
+<stat fail="5" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="5" id="s1" name="Testsuite" pass="0">Testsuite</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20170601 16:03:12.651" level="ERROR">Error in file 'D:\dev\robot\Case\templates\testsuite.txt': Resource file 'basickeywords.txt' does not exist.</msg>
+<msg timestamp="20170601 16:03:12.661" level="WARN">Multiple test cases with name '{% endfor %}' executed in test suite 'Testsuite'.</msg>
+</errors>
+</robot>
