@@ -1,0 +1,8 @@
+- name: ensure pytenv dir exist
+  file: path=/opt/pyenv state=directory mode=0655
+
+- name: ensure deploy utils dir exist
+  file: path=/opt/deploy_utils state=directory mode=0655
+
+- name: install uplink script
+  copy: src=update-link.py dest=/opt/deploy_utils/update-link.py mode=0655

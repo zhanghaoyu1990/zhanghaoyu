@@ -1,0 +1,7 @@
+- name: install hrb_env by pip
+  pip: name=shata-hrb_env state=present extra_args="-i {{ index_url }} --trusted-host {{ trusted_host }} --no-cache -t /opt/repo/env/pyenv/hrb_env"
+  register: env
+
+- name: link to env dir
+  shell: python /opt/deploy_utils/update-link.py --module pyenv/hrb_env
+  when: env.changed

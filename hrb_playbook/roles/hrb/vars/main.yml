@@ -1,0 +1,3 @@
+container_path: hrb
+pid_file_name: hrb.pid
+tmp_pid_path: /tmp/hrb.pid

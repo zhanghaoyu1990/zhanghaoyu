@@ -1,0 +1,4 @@
+[hrb_server]
+zonglin04 ansible_ssh_user=root ansible_ssh_port=5188 ansible_ssh_private_key_file=/home/zonglin/.ssh/zonglin.pem
+zonglin08 ansible_ssh_user=root ansible_ssh_port=5188 ansible_ssh_private_key_file=/home/zonglin/.ssh/zonglin.pem
+zonglin18 ansible_ssh_user=root ansible_ssh_port=5188 ansible_ssh_private_key_file=/home/zonglin/.ssh/zonglin.pem

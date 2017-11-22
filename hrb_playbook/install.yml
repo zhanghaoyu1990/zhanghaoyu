@@ -1,0 +1,7 @@
+- hosts: hrb_server
+  roles:
+  - role: utils
+  - role: hrb_env
+  - role: hrb
+    tags:
+      - install hrb

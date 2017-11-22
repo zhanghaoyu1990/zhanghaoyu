@@ -1,0 +1,39 @@
+- name: retrieve pid file status
+  stat: path=/opt/{{ container_path }}/{{ pid_file_name }}
+  register: pid_status
+
+- name: backup pid file
+  shell: cat /opt/{{ container_path }}/{{ pid_file_name }} > {{ tmp_pid_path }}
+  when: pid_status.stat.exists
+
+- name: install hrb by pip
+  pip: name=shata-hrb state=present extra_args="-i {{ index_url }} --trusted-host {{ trusted_host }} --no-cache -t /opt/repo/env/{{ container_path }}"
+  register: version
+
+- name: retrieve work dir status -1
+  stat: path=/opt/{{ container_path }}
+  register: work_dir_status
+
+- name: create work dir if not exists
+  file: path=/opt/{{ container_path }} recurse=yes state=directory
+  when: work_dir_status.stat.exists == False
+
+- name: retrieve work dir status -2
+  stat: path=/opt/{{ container_path }}
+  register: work_dir_status
+
+- name: remove work dir if exists
+  file: path=/opt/{{ container_path }} state=absent
+  when: work_dir_status.stat.exists
+
+- name: link to dir
+  shell: python /opt/deploy_utils/update-link.py --module {{ container_path }}
+  when: version.changed
+
+- name: restore pid file
+  shell: cat {{ tmp_pid_path }} > /opt/{{ container_path }}/{{ pid_file_name }}
+  when: pid_status.stat.exists
+
+- name: delete backup pid file
+  file: path={{ tmp_pid_path }} state=absent
+  when: pid_status.stat.exists

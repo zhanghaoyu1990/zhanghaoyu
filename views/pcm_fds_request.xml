@@ -1,0 +1,12 @@
+op={{operation}}&context=<?xml version="1.0" encoding="UTF-8"?>
+<ccsc>
+    <cust_id>{{username}}</cust_id>
+    <passwd>{{password}}</passwd>
+    <item_id value="{{item_id}}">
+        <site>210</site>
+        <source_path>{{source_path}}</source_path>
+        <publish_path>{{publish_path}}</publish_path>
+        <md5>{{md5}}</md5>
+        <priority>3</priority>
+   </item_id>
+</ccsc>
